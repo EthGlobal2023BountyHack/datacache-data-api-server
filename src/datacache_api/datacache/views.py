@@ -28,6 +28,7 @@ class AddWalletView(View):
             return error('Invalid data')
         UserData.objects.get_user(address)
         # TODO: Async user tags
+        UnSyncWallet.objects.get_or_create(address)
         response_data = {'status': 0, 'error': 'Success'}
         return success()
 

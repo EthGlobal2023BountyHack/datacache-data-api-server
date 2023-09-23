@@ -135,12 +135,6 @@ STATIC_URL = '/static/'
 
 # AUTH_USER_MODEL = 'datacache.DataUser'
 
-JWT_SECRET = 'adversharesecretforjwtauthendpoints'
-JWT_LIFE = 157680000
-TOKEN_LIFE = 157680000
-REFRESH_JWT_SECRET = 'adversharesecretforjwtauthendpoints'
-REFRESH_JWT_LIFE = 157680000
-
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.getenv("STATIC_PATH", os.path.join(BASE_DIR, 'static'))

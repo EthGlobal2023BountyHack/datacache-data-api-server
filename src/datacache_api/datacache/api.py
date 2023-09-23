@@ -11,13 +11,11 @@ async def airstack_query(query, variables, limit):
     res = list()
     execute_query_client = airstack_client.create_execute_query_object(query=query, variables=variables)
     query_response = await execute_query_client.execute_paginated_query()
-    print("error", query_response.error)
     res.append(query_response.data)
     page = 1
     while query_response.has_next_page and page < limit:
         page += 1
         query_response = await query_response.get_next_page
-        print("error", query_response.error)
         res.append(query_response.data)
     return res
 

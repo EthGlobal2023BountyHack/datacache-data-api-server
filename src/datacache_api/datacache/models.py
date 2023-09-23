@@ -8,6 +8,16 @@ from .api import airstack_query
 from jsonpath_ng import jsonpath, parse
 import asyncio
 
+
+def sync_tags(wallet_address):
+    user = UserData.objects.get_user(wallet_address)
+    query = AirstackConfig.objects.all()
+    for config in query:
+        try:
+            config.create_tag_from_user(wallet_address)
+        except:
+            pass
+
 # class DataUser(AbstractUser):
 #     wallet_address = models.CharField(max_length=255, default='', blank=True, db_index=True)
 class BaseModel(models.Model):
@@ -68,6 +78,7 @@ class AirstackConfig(BaseModel):
                 'query MyQuery {',
                 'query MyQuery($identity: Identity) {'
             )
+            print(user_query)
         else:
             user_query = self.query
         user_variables = self.variables.copy()
@@ -76,7 +87,6 @@ class AirstackConfig(BaseModel):
         for query in data:
             exp = parse(self.expression)
             for match in exp.find(query):
-                print(match.value)
                 wallet_address = str(match.value)
                 user = UserData.objects.get_user(wallet_address)
                 user.tags.add(self.tag)
@@ -85,6 +95,18 @@ class UserDataManager(models.Manager):
     def get_user(self, wallet_address):
         user, created = self.get_or_create(wallet_address=wallet_address)
         return user
+
+class UnSyncWalletManager(models.Manager):
+    pass
+
+class UnSyncWallet(BaseModel):
+    wallet_address = models.CharField(max_length=255, default='', blank=True, db_index=True)
+
+    objects = UnSyncWalletManager()
+
+    def __str__(self):
+        return self.wallet_address
+    
 
 class UserData(BaseModel):
     wallet_address = models.CharField(max_length=255, default='', blank=True, db_index=True)
