@@ -32,6 +32,14 @@ class AddWalletView(View):
         response_data = {'status': 0, 'error': 'Success'}
         return success()
 
+class TagListView(View):
+    def get(self, request, *args, **kwargs):
+        query = Tag.objects.all()
+        res = list()
+        for cell in query:
+            res.append({"id": cell.id, "name": cell.name})
+        return JsonResponse({'status': 0, 'message': 'Success', "list": res})
+
 class WalletTagListView(View):
     def get_tag_data(self, user):
         tags = user.tags.all()

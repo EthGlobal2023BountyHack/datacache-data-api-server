@@ -30,4 +30,5 @@ urlpatterns = [
     path('api/wallet/tag/add/', AddTagToWalletView.as_view(), name='add_wallet_tag'),
     path('api/wallet/add/', AddWalletView.as_view(), name='add_wallet'),
     path('api/wallet/tag/list/', WalletTagListView.as_view(), name='list_wallet_tag'),
+    path('api/tag/list/', TagListView.as_view(), name='list_tag'),
 ]

@@ -13,6 +13,10 @@ class AirstackConfigForm(forms.ModelForm):
             'filter_variables': FlatJsonWidget
         }
 
+class UserTagsInline(admin.TabularInline):
+    model = UserTags
+    extra = 1 
+
 @admin.register(AirstackConfig)
 class AirstackConfigAdmin(admin.ModelAdmin):
     list_display = ('tag', 'desc', 'sync_button', )
@@ -47,6 +51,7 @@ class AirstackConfigAdmin(admin.ModelAdmin):
     
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
+    inlines = [UserTagsInline]
     list_display = ('id', 'name', 'origin',  )
     search_fields = ('name', 'origin', )
     list_filter = ('detached', 'origin', )
@@ -54,6 +59,7 @@ class TagAdmin(admin.ModelAdmin):
 
 @admin.register(UserData)
 class UserDataAdmin(admin.ModelAdmin):
+    inlines = [UserTagsInline]
     list_display = ('wallet_address', 'tags_content' )
     search_fields = ('wallet_address', )
     list_filter = ('tags', 'detached', )

@@ -25,3 +25,9 @@ https://datacache.ecalculator.pro/api/wallet/tag/list/?address=0x75e89d5979e4f6f
 * POST
 * Params: address, tag(id)
 * tag can be added in admin
+
+* 4. Tag list 
+* Route /api/tag/list/
+No Params
+Result
+{"status": 0, "message": "Success", "list": [{"id": 2, "name": "BigWhale Of ApeCoin"}, {"id": 3, "name": "XMTP"}, {"id": 4, "name": "ERC6551 Supporter"}]}
