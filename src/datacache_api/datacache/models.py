@@ -42,12 +42,15 @@ class AirstackConfig(BaseModel):
     variables = models.JSONField('Variables', default=dict, blank=True)
     expression = models.CharField('Expression', max_length=255, default='', blank=True)
     limit = models.IntegerField('Limit Pages', default=1000, blank=True)
+    support_list_result = models.BooleanField("Support List Result", default=True)
     objects = AirstackManager()
 
     def __str__(self):
         return str(self.tag.name)
 
     def create_tags(self):
+        if not self.support_list_result:
+            return
         data = asyncio.run(airstack_query(self.query, self.variables, self.limit))
         for query in data:
             exp = parse(self.expression)
@@ -57,13 +60,16 @@ class AirstackConfig(BaseModel):
                 user.tags.add(self.tag)
 
     def create_tag_from_user(self, wallet_address):
-        user_query = self.query.replace(
-            'filter: {',
-            'filter: { owner: {_eq: $identity},'
-        ).replace(
-            'query MyQuery {',
-            'query MyQuery($identity: Identity) {'
-        )
+        if self.support_list_result:
+            user_query = self.query.replace(
+                'filter: {',
+                'filter: { owner: {_eq: $identity},'
+            ).replace(
+                'query MyQuery {',
+                'query MyQuery($identity: Identity) {'
+            )
+        else:
+            user_query = self.query
         user_variables = self.variables.copy()
         user_variables['identity'] = wallet_address
         data = asyncio.run(airstack_query(user_query, user_variables, 1))
