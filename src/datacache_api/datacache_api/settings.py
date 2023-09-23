@@ -25,7 +25,7 @@ SECRET_KEY = 'pr!uh@mf%9n0=ftpqqxeoukd3v*!3n$%l&l0-houeb+a8_k(+h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['datacache.ecalculator.pro', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -141,6 +141,9 @@ TOKEN_LIFE = 157680000
 REFRESH_JWT_SECRET = 'adversharesecretforjwtauthendpoints'
 REFRESH_JWT_LIFE = 157680000
 
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.getenv("STATIC_PATH", os.path.join(BASE_DIR, 'static'))
 
 CELERY_BROKER_URL = "redis://localhost:6379"
 CELERY_RESULT_BACKEND = "redis://localhost:6379"
