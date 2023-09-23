@@ -31,3 +31,9 @@ https://datacache.ecalculator.pro/api/wallet/tag/list/?address=0x75e89d5979e4f6f
 No Params
 Result
 {"status": 0, "message": "Success", "list": [{"id": 2, "name": "BigWhale Of ApeCoin"}, {"id": 3, "name": "XMTP"}, {"id": 4, "name": "ERC6551 Supporter"}]}
+
+* 5. Search Wallet Addresses by tags
+* Route /api/wallet/tag/search/
+* Params: tags(id), use , to split. 2,4 means Tag(2) and Tag(4)
+*         condition(Optional, default or), or|and, search users by tags
+* /api/wallet/tag/search/?tags=2,4&condition=and
