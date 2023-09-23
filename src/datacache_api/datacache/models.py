@@ -30,7 +30,7 @@ class Tag(BaseModel):
     origin = models.CharField('Origin', max_length=100, default='', blank=True)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 class AirstackManager(models.Manager):
     pass
@@ -45,7 +45,7 @@ class AirstackConfig(BaseModel):
     objects = AirstackManager()
 
     def __str__(self):
-        return self.tag.name
+        return str(self.tag.name)
 
     def create_tags(self):
         data = asyncio.run(airstack_query(self.query, self.variables, self.limit))

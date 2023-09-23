@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 import os
 
+from datacache.views import *
+
 TITLE = os.getenv("ADMIN_TITLE", default="DataCache")
 
 admin.site.site_header = TITLE
@@ -25,4 +27,7 @@ admin.site.site_title = TITLE
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/wallet/tag/add/', AddTagToWalletView.as_view(), name='add_wallet_tag'),
+    path('api/wallet/add/', AddWalletView.as_view(), name='add_wallet'),
+    path('api/wallet/tag/list/', WalletTagListView.as_view(), name='list_wallet_tag'),
 ]

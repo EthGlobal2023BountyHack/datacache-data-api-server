@@ -3,6 +3,7 @@ local_env.sh
 # Celery stuff
 celerybeat-schedule
 celerybeat.pid
+runlog.txt 
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,macos,django,visualstudiocode,linux
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,macos,django,visualstudiocode,linux

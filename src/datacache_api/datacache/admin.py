@@ -21,7 +21,7 @@ class AirstackConfigAdmin(admin.ModelAdmin):
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    list_display = ('name', 'origin',  )
+    list_display = ('id', 'name', 'origin',  )
     search_fields = ('name', 'origin', )
     list_filter = ('detached', 'origin', )
 
