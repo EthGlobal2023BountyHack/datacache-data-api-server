@@ -1,0 +1,12 @@
+Django==3.2
+requests==2.22.0
+django-import-export==2.5.0
+django-flat-json-widget==0.1.2
+django-admin-rangefilter==0.8.1
+pymongo==3.12.1
+dnspython=2.4.2
+social-auth-app-django==5.3.0
+airstack==0.0.7
+celery==5.3.4
+redis==5.0.0
+jsonpath_ng==1.6.0
