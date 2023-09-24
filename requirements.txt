@@ -10,3 +10,4 @@ airstack==0.0.7
 celery==5.3.4
 redis==5.0.0
 jsonpath_ng==1.6.0
+web3==4.8.0

@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+import time
 
 def send_notifications_to_wallets(addresses, is_eip155=False, body="Your Done!", title="Reward Claimed",
         icon="https://push.notification.image/icon.png", url="https://datacache.ecalculator.pro/",
@@ -53,6 +54,6 @@ def boardcast(body="Your Done!", title="Reward Claimed"):
     )
 
 if __name__ == "__main__":
-    print(get_subscribes())
-    # print(send_notifications_to_wallets(["0xe5107dee9CcC8054210FF6129cE15Eaa5bbcB1c0"]))
+    # print(get_subscribes())
+    print(send_notifications_to_wallets(["0x88E1c2bDC9DfAF4cFf2503E9a1EcaBB045062230"], title="SEE HERE!!!!", body=json.dumps({"timestamp": int(time.time()), "bountyId": 1})))
     # print(boardcast())
