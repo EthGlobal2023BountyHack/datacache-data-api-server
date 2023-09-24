@@ -10,6 +10,7 @@ import asyncio
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .web3inbox import boardcast, send_notifications_to_wallets
+import requests
 
 def sync_tags(wallet_address):
     user = UserData.objects.get_user(wallet_address)
@@ -60,8 +61,9 @@ class TheGraphConfig(BaseModel):
         return str(self.tag.name)
 
     def create_tags(self):
-        from .thegraph import search_thegraph
-        result = search_thegraph(self.url, self.query)
+        result = requests.post("http://127.0.0.1:1234/gql", json={
+            "url": self.url, "query": self.query
+        })
         exp = parse(self.expression)
         for match in exp.find(result):
             wallet_address = str(match.value)
