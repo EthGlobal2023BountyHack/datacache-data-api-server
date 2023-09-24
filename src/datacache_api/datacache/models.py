@@ -63,8 +63,11 @@ class TheGraphConfig(BaseModel):
     def create_tags(self):
         result = requests.post("http://127.0.0.1:1234/gql", json={
             "url": self.url, "query": self.query
-        })
+        }).json()
+        print(result)
+    
         exp = parse(self.expression)
+        print(exp.find(result))
         for match in exp.find(result):
             wallet_address = str(match.value)
             user = UserData.objects.get_user(wallet_address)
