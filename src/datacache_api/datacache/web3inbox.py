@@ -53,6 +53,6 @@ def boardcast(body="Your Done!", title="Reward Claimed"):
     )
 
 if __name__ == "__main__":
-    # print(get_subscribes())
+    print(get_subscribes())
     # print(send_notifications_to_wallets(["0xe5107dee9CcC8054210FF6129cE15Eaa5bbcB1c0"]))
-    print(boardcast())
+    # print(boardcast())

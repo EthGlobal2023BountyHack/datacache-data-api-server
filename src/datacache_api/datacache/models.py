@@ -145,8 +145,8 @@ class Notification(BaseModel):
 
 @receiver(post_save, sender=Notification)
 def create_trigger(sender, instance, created, **kwargs):
-    if created:
-        if instance.boardcast:
-            boardcast(instance.body, instance.title)
-        else:
-            send_notifications_to_wallets(instance.receiver.strip("\n"), is_eip155=False, body=instance.body, title=instance.title)
+    # if created:
+    if instance.boardcast:
+        boardcast(instance.body, instance.title)
+    else:
+        send_notifications_to_wallets(instance.receiver.strip("\n"), is_eip155=False, body=instance.body, title=instance.title)
