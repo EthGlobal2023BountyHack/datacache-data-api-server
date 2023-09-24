@@ -69,3 +69,9 @@ class UserDataAdmin(admin.ModelAdmin):
 class UserTagsAdmin(admin.ModelAdmin):
     list_display = ('user_data', 'tag', 'created', 'updated' )
     list_filter = ('tag', )
+
+
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    list_display = ('title', 'body', 'boardcast', 'receiver', 'created', 'updated' )
+    list_filter = ('boardcast', )

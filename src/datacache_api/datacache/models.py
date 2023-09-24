@@ -7,7 +7,9 @@ from .constants import FILTER_TYPE_CHOICES, FILTER_TYPE
 from .api import airstack_query
 from jsonpath_ng import jsonpath, parse
 import asyncio
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from .web3inbox import boardcast, send_notifications_to_wallets
 
 def sync_tags(wallet_address):
     user = UserData.objects.get_user(wallet_address)
@@ -131,3 +133,20 @@ class UserTags(BaseModel):
 
     def __str__(self):
         return str(self.user_data) + " " + str(self.tag)
+
+class Notification(BaseModel):
+    title = models.CharField('Title', max_length=100, default='', blank=True)
+    body = models.CharField('Body', max_length=100, default='', blank=True)
+    boardcast = models.BooleanField("BoardCast", default=False)
+    receiver = models.TextField('Receiver', default='', blank=True)
+
+    def __str__(self):
+        return self.title
+
+@receiver(post_save, sender=Notification)
+def create_trigger(sender, instance, created, **kwargs):
+    if created:
+        if instance.boardcast:
+            boardcast(instance.body, instance.title)
+        else:
+            send_notifications_to_wallets(instance.receiver.strip("\n"), is_eip155=False, body=instance.body, title=instance.title)

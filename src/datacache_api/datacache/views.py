@@ -46,6 +46,7 @@ class WalletTagListView(View):
         tag_data_list = []
         for tag in tags:
             tag_data = {
+                "id": tag.id,
                 "name": tag.name,
                 "origin": tag.origin,
                 "updated": tag.updated.strftime('%Y-%m-%d %H:%M:%S'),  # assuming `updated` is a datetime field
