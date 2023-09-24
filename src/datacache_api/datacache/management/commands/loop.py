@@ -28,4 +28,5 @@ class Command(BaseCommand):
             print("work")
             for event in event_filter.get_new_entries():
                 event_callback(event)
+            time.sleep(30)
         print("end")
