@@ -55,5 +55,5 @@ def boardcast(body="Your Done!", title="Reward Claimed"):
 
 if __name__ == "__main__":
     # print(get_subscribes())
-    print(send_notifications_to_wallets(["0x88E1c2bDC9DfAF4cFf2503E9a1EcaBB045062230"], title="SEE HERE!!!!", body=json.dumps({"timestamp": int(time.time()), "bountyId": 1})))
+    print(send_notifications_to_wallets(["0x88E1c2bDC9DfAF4cFf2503E9a1EcaBB045062230", "0x7335f9669e27Eaf9bE0BA05D381EF3A22Bd40Bd6"], title="SEE HERE!!!!", body=json.dumps({"timestamp": int(time.time()), "bountyId": 1})))
     # print(boardcast())

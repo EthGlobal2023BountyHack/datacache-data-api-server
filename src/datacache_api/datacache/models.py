@@ -44,6 +44,30 @@ class Tag(BaseModel):
     def __str__(self):
         return str(self.name)
 
+class TheGraphManager(models.Manager):
+    pass
+
+class TheGraphConfig(BaseModel):
+    tag = models.ForeignKey(Tag, on_delete=models.DO_NOTHING, null=True, related_name='thegraph_config', verbose_name='Tag')
+    desc = models.TextField('Description', default='', blank=True)
+    url = models.TextField('Url', default='', blank=True)
+    query = models.TextField('Query', default='', blank=True)
+    expression = models.CharField('Expression', max_length=255, default='', blank=True)
+
+    objects = TheGraphManager()
+    
+    def __str__(self):
+        return str(self.tag.name)
+
+    def create_tags(self):
+        from .thegraph import search_thegraph
+        result = search_thegraph(self.url, self.query)
+        exp = parse(self.expression)
+        for match in exp.find(result):
+            wallet_address = str(match.value)
+            user = UserData.objects.get_user(wallet_address)
+            user.tags.add(self.tag)
+
 class AirstackManager(models.Manager):
     pass
 

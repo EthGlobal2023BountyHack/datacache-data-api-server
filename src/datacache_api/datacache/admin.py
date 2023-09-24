@@ -17,6 +17,13 @@ class UserTagsInline(admin.TabularInline):
     model = UserTags
     extra = 1 
 
+@admin.register(TheGraphConfig)
+class TheGraphConfigAdmin(admin.ModelAdmin):
+    list_display = ('tag', 'desc', )
+    search_fields = ('desc', )
+    list_filter = ('detached', 'tag', )
+
+
 @admin.register(AirstackConfig)
 class AirstackConfigAdmin(admin.ModelAdmin):
     list_display = ('tag', 'desc', 'sync_button', )
